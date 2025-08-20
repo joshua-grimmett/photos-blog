@@ -33,15 +33,18 @@ export function GalleryLightbox({
 
   React.useEffect(() => {
     if (!emblaApi) return;
-    emblaApi.scrollTo(index, true);
+    const safeStart = Math.max(0, Math.min(startIndex, items.length - 1));
+    emblaApi.scrollTo(safeStart, true);
+
     const onSelect = () => setIndex(emblaApi.selectedScrollSnap());
+    onSelect(); // set initial index
     emblaApi.on('select', onSelect);
     return () => {
-      // ensure cleanup returns void (not the result of .off)
       emblaApi.off('select', onSelect);
     };
-  }, [emblaApi, index]);
+  }, [emblaApi, open, startIndex, items.length]);
 
+  // Keyboard navigation
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (!open) return;
