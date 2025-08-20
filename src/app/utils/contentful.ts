@@ -21,7 +21,6 @@ export interface BlogFields extends EntrySkeletonType {
   subtitle?: string;
   featuredImage?: Asset;
   content?: string;
-  relatedBlogPosts?: Entry<BlogFields>[];
   imageGallery?: Asset[];
 }
 
