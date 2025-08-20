@@ -24,7 +24,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className='min-h-screen bg-background text-foreground antialiased'>
+      <body
+        suppressHydrationWarning
+        className='min-h-screen bg-background text-foreground antialiased'
+      >
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           <header className='sticky top-0 z-50 border-b bg-background/80 backdrop-blur'>
             <div className='container mx-auto flex h-16 items-center justify-between px-4'>

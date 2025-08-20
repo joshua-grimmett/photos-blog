@@ -27,7 +27,61 @@ The site renders blog posts from Contentful (Markdown content + images) and disp
 Clone the repo and install dependencies:
 
 ```bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
+git clone https://github.com/joshua-grimmett/photos-blog.git
+cd photos-blog
 pnpm install
 ```
+
+Run the development server:
+
+```bash
+pnpm dev
+```
+
+Then open [http://localhost:3000](http://localhost:3000).
+
+---
+
+## 🔧 Environment Variables
+
+Create a `.env.local` file with your Contentful credentials:
+
+```env
+NEXT_PUBLIC_CONTENTFUL_SPACE_ID=xxxxxxx
+NEXT_PUBLIC_CONTENTFUL_DELIVERY_TOKEN=xxxxxxx
+SITE_PASSCODE=xxxx
+```
+
+---
+
+## 📂 Project Structure
+
+```
+app/
+  layout.tsx          # Layout with navigation + theme toggle
+  page.tsx            # Home page with blog grid
+  blog/[slug]/page.tsx # Individual blog post
+  unlock/             # Passcode unlock page
+components/ui/        # shadcn/ui components
+app/utils/contentful.ts # Contentful data fetching
+middleware.ts         # Passcode protection
+```
+
+---
+
+## 📦 Deployment
+
+This project is optimised for [Vercel](https://vercel.com).
+Push to GitHub and import the repo in Vercel for instant CI/CD.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please open an issue or submit a PR if you’d like to improve functionality or design.
+
+---
+
+## 📜 License
+
+MIT © [Josh Grimmett](https://github.com/joshua-grimmett)

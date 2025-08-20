@@ -1,5 +1,10 @@
-import { createClient, Entry, Asset, EntrySkeletonType } from 'contentful';
-import { env } from './env';
+import {
+  createClient,
+  type Entry,
+  type Asset,
+  EntrySkeletonType,
+} from 'contentful';
+import { env } from '~/app/utils/env';
 
 export interface AuthorFields extends EntrySkeletonType {
   name?: string;
@@ -15,19 +20,20 @@ export interface BlogFields extends EntrySkeletonType {
   title: string;
   subtitle?: string;
   featuredImage?: Asset;
-  content?: string; // markdown string you store in Contentful
+  content?: string;
   relatedBlogPosts?: Entry<BlogFields>[];
-  videoGallery?: Asset[];
+  imageGallery?: Asset[];
 }
 
 export type BlogEntry = Entry<BlogFields>;
 
 const client = createClient({
-  space: env.CONTENTFUL_SPACE_ID,
-  accessToken: env.CONTENTFUL_DELIVERY_TOKEN,
+  space: env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID,
+  accessToken: env.NEXT_PUBLIC_CONTENTFUL_DELIVERY_TOKEN,
 });
 
 export async function getAllBlogs(): Promise<BlogEntry[]> {
+  if (!client) return [];
   const res = await client.getEntries<BlogFields>({
     content_type: 'blogPost',
     include: 2,

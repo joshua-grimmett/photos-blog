@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { env } from './app/utils/env';
+import { env } from '~/app/utils/env';
 
 const BYPASS_PATHS = [
   '/unlock',
@@ -9,9 +9,11 @@ const BYPASS_PATHS = [
   '/robots.txt',
   '/sitemap.xml',
 ];
+const COOKIE_NAME = 'site_pass';
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
+
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/images') ||
@@ -20,7 +22,7 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  const hasCookie = req.cookies.get('site_pass')?.value === env.SITE_PASSCODE;
+  const hasCookie = req.cookies.get(COOKIE_NAME)?.value === env.SITE_PASSCODE;
   if (hasCookie) return NextResponse.next();
 
   const url = req.nextUrl.clone();
@@ -29,6 +31,4 @@ export function middleware(req: NextRequest) {
   return NextResponse.redirect(url);
 }
 
-export const config = {
-  matcher: '/:path*',
-};
+export const config = { matcher: '/:path*' };
